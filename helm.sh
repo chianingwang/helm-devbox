@@ -46,13 +46,14 @@ tar -zxvf helm-v2.8.0-linux-amd64.tar.gz
 sudo mv linux-amd64/helm /usr/local/bin/helm
 helm help
 helm init
-#echo "sleep 2 m to wait tiller-deploy container up and running"
-#sleep 2m
-until [ $(kubectl get pods --namespace kube-system | grep tiller-deploy | grep Running -ci) == 0 ];do echo "Tiller-Deploy Containers Not Ready then Sleep 5s .. " && sleep 5s; done
+sleep 30s
+until [ $(kubectl get pods --namespace kube-system | grep tiller-deploy | grep Running -ci) == 1 ];do echo "Before patch, Tiller-Deploy Containers Not Ready then Sleep 5s .. " && sleep 5s; done
 kubectl get pods --namespace kube-system
-#kubectl create serviceaccount --namespace kube-system tiller
-#kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+until [ $(kubectl get pods --namespace kube-system | grep tiller-deploy | grep Running -ci) == 1 ];do echo "After patch, Tiller-Deploy Containers Not Ready then Sleep 5s .. " && sleep 5s; done
+kubectl get pods --namespace kube-system
 helm create mychart
 helm install --debug --dry-run ./mychart
 echo "Congradulation your helm, k8s and docker dev box is ready !!!"

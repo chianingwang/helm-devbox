@@ -10,6 +10,7 @@ Vagrant.configure(2) do |config|
         vb.cpus = 2
     helm.vm.provision "shell", path: "helm.sh"
     helm.vm.synced_folder "test/", "/home/vagrant/test"
+    #helm.vm.boot_timeout = 1200
     end
   end
 end
