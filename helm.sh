@@ -42,7 +42,7 @@ until [ $(kubectl get pods --all-namespaces | grep ErrImagePull -ci) == 0 ];do e
 kubectl get pods --all-namespaces
 echo "setup helm now..."
 wget https://kubernetes-helm.storage.googleapis.com/helm-v2.8.0-linux-amd64.tar.gz
-tar -zxvf helm-v2.8.0-linux-amd64.tar.gz
+tar -zxvf helm-v2.8.0-linux-amd64.tar.gz &> /dev/null
 sudo mv linux-amd64/helm /usr/local/bin/helm
 helm help
 helm init

@@ -9,8 +9,7 @@ Vagrant.configure(2) do |config|
         vb.memory = 4096
         vb.cpus = 2
     helm.vm.provision "shell", path: "helm.sh"
-    helm.vm.synced_folder "test/", "/home/vagrant/test"
-    #helm.vm.boot_timeout = 1200
+    helm.vm.synced_folder "git/", "/home/ubuntu/git"
     end
   end
 end
