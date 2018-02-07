@@ -4,12 +4,12 @@ Vagrant.configure(2) do |config|
     helm.vm.box_version = "20171011.0.0"
     helm.ssh.insert_key = 'false'
     helm.vm.hostname = "helm.swiftstack.org"
-    helm.vm.network "private_network", ip: "172.28.128.47", name: "vboxnet0"
+    helm.vm.network "private_network", ip: "192.168.22.200"
     helm.vm.provider :virtualbox do |vb|
         vb.memory = 4096
         vb.cpus = 2
     helm.vm.provision "shell", path: "helm.sh"
-    helm.vm.synced_folder "git/", "/home/ubuntu/git"
+    helm.vm.synced_folder "git/", "/home/ubuntu/git", create: true
     end
   end
 end
