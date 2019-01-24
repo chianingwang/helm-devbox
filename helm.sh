@@ -1,5 +1,5 @@
 #!/bin/bash
-HOME="/home/ubuntu"
+HOME="/home/vagrant"
 echo $HOME
 sudo apt-get update -y
 sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common python-swiftclient tree
